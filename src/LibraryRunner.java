@@ -8,10 +8,13 @@ public class LibraryRunner {
         Library library = new Library();
         int press;
 
-        /*
-         Pre-populate the library with some books
-         */
 
+        library.addBooks("Human Evolution", "Tawhidur Rahman");//just joke
+
+        /*
+         Pre-populate the library with some books .
+         All are real books 😅.
+        */
         library.addBooks("To Kill a Mockingbird", "Harper Lee");
         library.addBooks("1984", "George Orwell");
         library.addBooks("The Great Gatsby", "F. Scott Fitzgerald");
@@ -124,9 +127,9 @@ public class LibraryRunner {
 
             switch (press) {
                 case 1:
-                    System.out.println("Enter Book Title:");
+                    System.out.print("Enter Book Title: ");
                     String title = sc.nextLine();
-                    System.out.println("Enter Book Author:");
+                    System.out.print("\nEnter Book Author: ");
                     String author = sc.nextLine();
                     library.addBooks(title, author);
                     System.out.println("The book: \"" + title + "\" by " + author + " is sucessfully added.");
