@@ -1,38 +1,63 @@
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+class Book {
+    private String title;
+    private String author;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public boolean matches(String title, String author) {
+        return this.title.equalsIgnoreCase(title) && this.author.equalsIgnoreCase(author);
+    }
+}
+
 public class Library {
-    private HashMap<String, String> books; // Key: Title, Value: Author
+    private ArrayList<Book> books; // List to store books
     private String issueDate;
     private Scanner sc;
 
     public Library() {
-        this.books = new HashMap<>();
+        this.books = new ArrayList<>();
         this.sc = new Scanner(System.in);
         this.issueDate = "hi";
     }
 
     public void addBooks(String title, String author) {
-        this.books.put(title, author);
+        this.books.add(new Book(title, author));
     }
 
     public boolean searchBook(String searchTitle, String searchAuthor) {
-        if (books.containsKey(searchTitle) && books.get(searchTitle).equalsIgnoreCase(searchAuthor)) {
-            System.out.println("The book: \"" + searchTitle + "\" by " + searchAuthor + " is available.");
-            return true;
+        for (Book book : books) {
+            if (book.matches(searchTitle, searchAuthor)) {
+                System.out.println("The book: \"" + searchTitle + "\" by " + searchAuthor + " is available.");
+                return true;
+            }
         }
         System.out.println("The book is not available.");
         return false;
     }
 
     public boolean removeBook(String titleToRemove, String authorToRemove) {
-        if (books.containsKey(titleToRemove) && books.get(titleToRemove).equalsIgnoreCase(authorToRemove)) {
-            books.remove(titleToRemove);
-            return true;
+        for (Book book : books) {
+            if (book.matches(titleToRemove, authorToRemove)) {
+                books.remove(book);
+                return true;
+            }
         }
         return false;
     }
@@ -43,8 +68,8 @@ public class Library {
             return;
         }
         System.out.println("Books in the Library:");
-        for (String title : books.keySet()) {
-            System.out.println("\"" + title + "\" by " + books.get(title));
+        for (Book book : books) {
+            System.out.println("\"" + book.getTitle() + "\" by " + book.getAuthor());
         }
     }
 
